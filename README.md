@@ -3,25 +3,24 @@ This repository contains R scripts and bee phylogenetic tree used to perform ana
 
 ---
 
-## Associated publication
+## Associated publication (currently under review)
 
-**Title:** *[Insert full manuscript title]*
-**Authors:** *[Insert authors]*
+**Title:** *Sociality and nesting strategy account for non-random associations between bees and their parasitic dipterans*
+**Authors:** *Carlo Polidori, Andrea Ferrari*
 **Journal:** *[Insert journal name]*
-**Year:** *[Insert year]*
+**Year:** *2026*
 **DOI:** *[Insert DOI]*
 
 ---
 
 ## Necessary files to run the statistical analyses
 
-* `Alien-Bees.R` → Main script for the full analysis pipeline
-* `Alien-bees.xlsx` → Metadata and model input data
-* `Bee_Tree.nwk` → Phylogenetic tree
-* `db_final.rds` → RDS file with presence records
+* `Script_Diptera-bees` → Main script for the full analysis pipeline
+* `DIPTBEE.xlsx` → Datafile (available at publisher page as supplementary file)
+* `Tree_Diptera-Bees` → Phylogenetic tree
 
 When the script is run, the following folders will appear:
-  * `rawdata/` → Raw and intermediate datasets (generated automatically)
+
   * `results/` → Statistical outputs (e.g. models, tables)
   * `figures/` → Maps and graphical outputs
 
@@ -30,34 +29,22 @@ When the script is run, the following folders will appear:
 ## Workflow overview
 
 1. Clone the **necessary files**
-2. Open `Alien-Bees.R` in RStudio
-3. Run:
-
-   * Section **0** → mandatory setup
-   * Sections **1–2** → ONLY for raw data dowload. Refined data are already present in `db_final.rds`
-   * Sections **3–6** → full analysis
-
+2. Open and run `Alien-Bees.R` in RStudio
 
 The analysis pipeline is divided into modular sections:
 
-* **0 – Environment preparation** → Installs and loads required R packages, sets up directories
+## Script structure
 
-* **1 – Data download** → Retrieves occurrence records from GBIF and ALA
+* **0 – Prepare the environment** → Installs and loads required R packages, creates output directories, checks the working directory, and prepares the R environment.
 
-* **2 – Data processing** → Cleans records, assigns native/invasive status, extracts environmental variables
+* **1 – Network** → Builds Diptera–bee interaction matrices, generates bipartite networks, calculates modularity and specialization metrics, and exports summary tables.
 
-* **3 – Mapping** → Generates species distribution maps and global heatmaps
+* **2 – Models** → Runs phylogenetic linear and logistic models testing the effects of bee traits and climate on parasitism richness, strategies, and specialization.
 
-* **4 – Niche modelling** → Performs PCA and calculates niche overlap and dynamics metrics
-
-* **5 – Statistical models** → Runs ordinar linear and phylogenetic models
-
-* **6 – Plots** → Produces some of the figures used in the manuscript
-
-
-**Note**: Data download requires GBIF and ALA credentials. Users must set GBIF credentials via *.Renviron*
+* **3 – Plots** → Produces publication-ready figures including barplots, spiderplots, specialization plots, and ancestral state reconstructions.
 
 ---
+
 
 ## Requirements
 
@@ -71,6 +58,7 @@ The script automatically installs missing packages. R 4.4+ is highly recommended
 For questions or data requests: *a.ferrari.research@gmail.com*
 
 ---
+
 
 ## Citation
 
