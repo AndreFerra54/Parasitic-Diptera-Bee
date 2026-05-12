@@ -5,11 +5,11 @@ This repository contains R scripts and bee phylogenetic tree used to perform ana
 
 ## Associated publication (currently under review)
 
-**Title:** *Sociality and nesting strategy account for non-random associations between bees and their parasitic dipterans*
-**Authors:** *Carlo Polidori, Andrea Ferrari*
-**Journal:** *[Insert journal name]*
-**Year:** *2026*
-**DOI:** *[Insert DOI]*
+**Title:** *Sociality and nesting strategy account for non-random associations between bees and their parasitic dipterans* - 
+**Authors:** *Carlo Polidori, Andrea Ferrari* - 
+**Journal:** *Currently under review* - 
+**Year:** *2026* - 
+**DOI:** *Currently under review* - 
 
 ---
 
@@ -62,4 +62,4 @@ For questions or data requests: *a.ferrari.research@gmail.com*
 
 ## Citation
 
-Please cite: *[Insert paper citation]* when using the script or the data
+Please cite: *Currently under review* when using the script or the data
