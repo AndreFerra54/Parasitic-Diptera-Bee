@@ -56,7 +56,11 @@ cat("Required packages installed, now the script should run.\n\n\n")
 
 
 
+
+
 #---------------------------------------------------------------------------#
+
+
 
 
 
@@ -210,13 +214,13 @@ mt <- drop.tip(myTree, remove)
 is.ultrametric(mt) #Check 1 --> FALSE
 mt <- chronos(mt) #If FALSE, then do this
 
-is.ultrametric(mt) #Check 1 --> TRUE
-is.rooted(mt) #Check 2 --> TRUE
+is.ultrametric(mt) #Check 1 --> T
+is.rooted(mt) #Check 2 --> T
 mt$edge.length <= 0 #Check 3 --> ALL FALSE
 
 #Tree and df should be the same
 setdiff(mt$tip.label, df_phylo$animal) # --> 0
-all(df_phylo$animal %in% mt$tip.label) # --> TRUE
+all(df_phylo$animal %in% mt$tip.label) # --> T
 
 #Remove big tree
 rm(myTree, sp, remove)
@@ -362,7 +366,7 @@ cat("Z-score:", z_score, "\n")
 #Names for the plot
 vertex_names <- c(rownames(matrix_gen), colnames(matrix_gen))
 V(g)$name <- vertex_names
-is_row <- V(g)$type == TRUE
+is_row <- V(g)$type == T
 
 #Colors
 colors <- viridis(max(membership(com)))
@@ -739,9 +743,9 @@ vars <- c("Parasitoid_Adult_NoEnter", "Parasitoid_Larva_Enter",
           "Parasitoid_Larva_NoEnter", "Cleptoparasite_Pollen_Enter")
 
 labels <- c(
-  "Parasitoid Adult",
-  "Parasitoid Larvae (Enter)",
-  "Parasitoid Larvae (No Enter)",
+  "Parasitoid of Adults",
+  "Nest-entering larval parasitoid",
+  "Non-nest-entering larval parasitoid",
   "Cleptoparasite")
 
 names(labels) <- vars
@@ -844,7 +848,7 @@ rm(df_sum, radar_data, fam, fam_rows, fill_colors, labels, line_colors,
 
 ggplot(df_phylo, aes(x = B_Nest, y = Str_Richness, fill = B_Nest)) +
   geom_boxplot(alpha = 0.2, outliers = F) +
-  geom_jitter(width = 0.1, height = 0, size = 2, alpha = 0.7, shape = 21) +
+  geom_jitter(width = 0.1, height = 0, size = 3, alpha = 0.7, shape = 21) +
   labs(x ="",
        y = "Strategy richness") +
   theme_bw() +
@@ -862,7 +866,7 @@ prop_summary <- function(df, group_var, response_var) {
     group_by({{ group_var }}) %>%
     summarise(
       n    = n(),
-      prop = mean({{ response_var }}, na.rm = TRUE),
+      prop = mean({{ response_var }}, na.rm = T),
       se   = sqrt(prop * (1 - prop) / n),
       lo   = pmax(prop - 1.2 * se, 0),
       hi   = pmin(prop + 1.96 * se, 1),
@@ -877,7 +881,7 @@ p1 <- prop_summary(df_phylo, B_Nest, Cleptoparasite) %>%
   geom_errorbar(aes(ymin = lo, ymax = hi), width = 0.12, linewidth = 0.7) +
   scale_y_continuous(labels = scales::percent_format(), limits = c(0, 0.75), expand = c(0, 0)) +
   scale_fill_manual(values = c("skyblue", "gold2")) +
-  labs(x = "", y = "Genera of Cleptoparasite") +
+  labs(x = "", y = "Genera of Cleptoparasites") +
   theme_bw() +
   theme(text = element_text(size = 20),
         axis.text = element_text(size = 15, color = "black"),
@@ -892,7 +896,7 @@ p2 <- prop_summary(df_phylo, B_Nest, Parasitoid_Larva_NoEnter) %>%
   geom_errorbar(aes(ymin = lo, ymax = hi), width = 0.12, linewidth = 0.7) +
   scale_y_continuous(labels = scales::percent_format(), limits = c(0, 0.75), expand = c(0, 0)) +
   scale_fill_manual(values = c("skyblue", "gold2")) +
-  labs(x = "", y = "Genera of Parasitoid of larvae (no enter)") +
+  labs(x = "", y = "Genera of Non-nest-entering larval parasitoids") +
   theme_bw() +
   theme(text = element_text(size = 20),
         axis.text = element_text(size = 15, color = "black"),
@@ -907,7 +911,7 @@ p3 <- prop_summary(df_phylo, B_Sociality, Parasitoid_Larva_NoEnter) %>%
   geom_errorbar(aes(ymin = lo, ymax = hi), width = 0.12, linewidth = 0.7) +
   scale_y_continuous(labels = scales::percent_format(), limits = c(0, 0.75), expand = c(0, 0)) +
   scale_fill_manual(values = c("purple3", "orange3", "lightgreen")) +
-  labs(x = "", y = "Genera of Parasitoid of larvae (no enter)") +
+  labs(x = "", y = "Genera of Non-nest-entering larval parasitoids") +
   theme_bw() +
   theme(text = element_text(size = 20),
         axis.text = element_text(size = 15, color = "black"),
@@ -917,7 +921,7 @@ ggsave("figures/Parasitoid_Larva_NoEnter_Sociality.pdf", p3, width = 13, height 
 
 ggplot(bee_specialisation, aes(x = B_Nest, y = dprime, fill = B_Nest)) +
   geom_boxplot(alpha = 0.2) +
-  geom_jitter(width = 0.2, height = 0, size = 2, alpha = 0.7, shape = 21) +
+  geom_jitter(width = 0.2, height = 0, size = 3, alpha = 0.7, shape = 21) +
   labs(x ="",
        y = "Bee d'") +
   theme_bw() +
@@ -957,7 +961,7 @@ get_lik <- function(trait_name) {
   tv <- setNames(df_phylo[[trait_name]], df_phylo$B_Species)
   tv <- tv[tree_plot$tip.label]
   tv <- na.omit(tv)
-  tmp <- ace(tv, tree_plot, type = "discrete", method = "ML", marginal = TRUE)
+  tmp <- ace(tv, tree_plot, type = "discrete", method = "ML", marginal = T)
   tmp$lik.anc[, 2]  # probabilità dello stato "1" per ogni nodo
 }
 
