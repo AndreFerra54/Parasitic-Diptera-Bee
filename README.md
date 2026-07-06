@@ -16,7 +16,7 @@ This repository contains R scripts and bee phylogenetic tree used to perform ana
 ## Necessary files to run the statistical analyses
 
 * `Script_Diptera-bees` → Main script for the full analysis pipeline
-* `DIPTBEE.xlsx` → Datafile (available at publisher page as supplementary file)
+* `DIPTBEE.xlsx` → Datafile available at publisher page
 * `Tree_Diptera-Bees` → Phylogenetic tree
 
 When the script is run, the following folders will appear:
